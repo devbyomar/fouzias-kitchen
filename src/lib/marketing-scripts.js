@@ -11,7 +11,7 @@
    - Inquiry form validation + success state
    - Footer year
    ========================================================= */
-(function () {
+export function init() {
   'use strict';
 
   /* ---------- Footer year ---------- */
@@ -23,7 +23,7 @@
     img.addEventListener('error', function handle() {
       img.removeEventListener('error', handle);
       if (!img.src.endsWith('_placeholder.svg') && !img.src.endsWith('logo.svg')) {
-        img.src = 'assets/_placeholder.svg';
+        img.src = '/assets/_placeholder.svg';
       }
     });
   });
@@ -649,4 +649,4 @@
 
   /* ---------- Initial render ---------- */
   renderAll();
-})();
+}

@@ -1,73 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#FAF6EE" />
+// Auto-extracted from the original index.html during the Next.js migration.
+// This is the marketing site's static markup. Interactivity (cart, nav,
+// forms, modals) is wired up by <MarketingScripts /> in the same route.
+// Incrementally replace chunks of this string with proper React components.
 
-  <!-- ============ SEO ============ -->
-  <title>Fouzia's Kitchen - Handcrafted Afghan Snacks &amp; Sweets | Tea Biscuits, Simyan, Kulcha</title>
-  <meta name="description" content="Fouzia's Kitchen prepares traditional Afghan snacks and sweets - Kulcha-e-Shor tea biscuits, mild &amp; spicy Simyan, Kulcha-e-Khitai, Rosette Cookies (Kulcha-e-Panjerei), and Meringue Cookies. Made fresh to order for tea time, Eid, weddings, and family gatherings." />
-  <meta name="keywords" content="Afghan bakery, Afghan snacks, Afghan sweets, Kulcha-e-Shor, Simyan, mild Simyan, spicy Simyan, Kulcha-e-Khitai, Kulcha-e-Panjerei, Rosette cookies, meringue cookies, Afghan tea biscuits, Eid sweets, Afghan dessert platters, homemade Afghan snacks" />
-  <link rel="canonical" href="https://fouziaskitchen.example.com/" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Fouzia's Kitchen - Handcrafted Afghan Snacks &amp; Sweets" />
-  <meta property="og:description" content="Traditional Afghan snacks and sweets, handcrafted with warmth, heritage, and the flavours of home." />
-  <meta property="og:image" content="assets/og-image.jpg" />
-  <meta property="og:url" content="https://fouziaskitchen.example.com/" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- ============ Fonts ============ -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet" />
-
-  <!-- ============ Styles ============ -->
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-
-  <!-- ============ Structured Data: LocalBusiness ============ -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Bakery",
-    "name": "Fouzia's Kitchen",
-    "description": "Traditional Afghan snacks and sweets, handcrafted with warmth, heritage, and the flavours of home.",
-    "image": "https://fouziaskitchen.example.com/assets/og-image.jpg",
-    "servesCuisine": ["Afghan", "Central Asian", "Middle Eastern"],
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "[City]",
-      "addressRegion": "[Region]",
-      "addressCountry": "[Country]"
-    },
-    "telephone": "+1-416-894-5755",
-    "email": "[hello@fouziaskitchen.com]",
-    "url": "https://fouziaskitchen.example.com/",
-    "sameAs": [
-      "https://www.instagram.com/fouzias.kitchen"
-    ]
-  }
-  </script>
-</head>
-
-<body>
-
-  <!-- =========================================================
-       SKIP LINK (Accessibility)
-       ========================================================= -->
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- =========================================================
-       HEADER / NAV
-       ========================================================= -->
-  <header class="site-header" id="siteHeader">
+export const MARKETING_HTML = `<header class="site-header" id="siteHeader">
     <div class="container nav-wrap">
       <a href="#top" class="brand" aria-label="Fouzia's Kitchen - home">
-        <img src="assets/logo.svg" alt="Fouzia's Kitchen logo" class="brand-mark" />
+        <img src="/assets/logo.svg" alt="Fouzia's Kitchen logo" class="brand-mark" />
       </a>
 
       <nav class="primary-nav" aria-label="Primary">
@@ -129,7 +68,7 @@
             textile in the corner, color palette of cream, gold, deep brown
             and terracotta, premium artisan food editorial style."
           -->
-          <img src="assets/hero-tea-table.jpg" alt="Afghan tea glasses and a brass tray of homemade Kulcha-e-Shor tea biscuits on a cream linen table." />
+          <img src="/assets/hero-tea-table.jpg" alt="Afghan tea glasses and a brass tray of homemade Kulcha-e-Shor tea biscuits on a cream linen table." />
           <figcaption class="hero-badge">
             <span class="badge-dot"></span> Made fresh to order
           </figcaption>
@@ -153,7 +92,7 @@
                wooden surface, embroidered Afghan textile peeking in the frame,
                natural window light, deep brown and gold tones, intimate and
                homemade feel - not staged or commercial." -->
-          <img src="assets/story-hands.jpg" alt="Hands arranging freshly baked Afghan cookies on a ceramic plate." />
+          <img src="/assets/story-hands.jpg" alt="Hands arranging freshly baked Afghan cookies on a ceramic plate." />
           <span class="frame-corner tl" aria-hidden="true"></span>
           <span class="frame-corner br" aria-hidden="true"></span>
         </figure>
@@ -199,7 +138,7 @@
                    (Kulcha-e-Shor) stacked beside a small clear Afghan tea glass
                    filled with amber tea, cream linen background, soft window
                    light, subtle gold accents, editorial food photography." -->
-              <img src="assets/product-kulcha-shor.jpg" alt="Stacked golden Kulcha-e-Shor tea biscuits beside an Afghan tea glass." />
+              <img src="/assets/product-kulcha-shor.jpg" alt="Stacked golden Kulcha-e-Shor tea biscuits beside an Afghan tea glass." />
               <span class="tag">Tea-Time Favourite</span>
             </div>
             <div class="product-body">
@@ -228,7 +167,7 @@
                    chili flakes hinting at the spicy variation, warm spices in
                    the background, cream and terracotta tones, natural light,
                    premium editorial styling. Not sweet, not dessert." -->
-              <img src="assets/product-simyan.jpg" alt="A ceramic bowl of crisp savoury Simyan with a small dish of chili flakes alongside." />
+              <img src="/assets/product-simyan.jpg" alt="A ceramic bowl of crisp savoury Simyan with a small dish of chili flakes alongside." />
               <span class="tag tag-savoury">Savoury</span>
             </div>
             <div class="product-body">
@@ -249,7 +188,7 @@
                    arranged on a brass plate, soft natural light, cream linen
                    background, gentle shadows, light dusting of flour, warm
                    editorial food photography." -->
-              <img src="assets/product-khitai.jpg" alt="Kulcha-e-Khitai cookies arranged on a brass plate." />
+              <img src="/assets/product-khitai.jpg" alt="Kulcha-e-Khitai cookies arranged on a brass plate." />
               <span class="tag">Made Fresh</span>
             </div>
             <div class="product-body">
@@ -278,7 +217,7 @@
                    showing intricate flower-like shape and light golden texture,
                    dusted with powdered sugar, warm natural light, cream linen,
                    premium festive editorial styling." -->
-              <img src="assets/product-panjerei.jpg" alt="Rosette cookies (Kulcha-e-Panjerei) on an elegant platter." />
+              <img src="/assets/product-panjerei.jpg" alt="Rosette cookies (Kulcha-e-Panjerei) on an elegant platter." />
               <span class="tag tag-celebration">Celebration Favourite</span>
             </div>
             <div class="product-body">
@@ -307,7 +246,7 @@
                    peaks, a gentle dusting of powdered sugar, soft natural
                    window light, cream and gold tones, elegant editorial
                    food photography, airy and light feel." -->
-              <img src="assets/product-meringue.jpg" alt="Light, swirled meringue cookies arranged on a cream ceramic plate." />
+              <img src="/assets/product-meringue.jpg" alt="Light, swirled meringue cookies arranged on a cream ceramic plate." />
               <span class="tag tag-celebration">Light &amp; Airy</span>
             </div>
             <div class="product-body">
@@ -575,7 +514,7 @@
                draped softly, soft natural window light, warm shadows, deep
                brown wood, editorial photo, no people in frame, restrained
                and elegant - not exoticized." -->
-          <img src="assets/hospitality-tea.jpg" alt="An Afghan tea table with tea glasses, mixed cookies on a brass tray, and an embroidered textile." />
+          <img src="/assets/hospitality-tea.jpg" alt="An Afghan tea table with tea glasses, mixed cookies on a brass tray, and an embroidered textile." />
           <span class="frame-corner tl" aria-hidden="true"></span>
           <span class="frame-corner br" aria-hidden="true"></span>
         </figure>
@@ -833,7 +772,7 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="f-brand">
-        <img src="assets/logo.svg" alt="Fouzia's Kitchen logo" class="brand-mark" />
+        <img src="/assets/logo.svg" alt="Fouzia's Kitchen logo" class="brand-mark" />
         <p>Traditional Afghan snacks and sweets, handcrafted with warmth, care, and heritage.</p>
       </div>
 
@@ -940,8 +879,4 @@
         </g>
       </symbol>
     </defs>
-  </svg>
-
-  <script src="script.js" defer></script>
-</body>
-</html>
+  </svg>`;
