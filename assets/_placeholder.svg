@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Temporary placeholder. Replace with real photography per /assets/README.md -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EFE5D0"/>
+      <stop offset="1" stop-color="#E2D6BD"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g)"/>
+  <g fill="none" stroke="#C9A24A" stroke-width="2" opacity=".55">
+    <circle cx="400" cy="500" r="220"/>
+    <circle cx="400" cy="500" r="160"/>
+    <polygon points="400,300 540,500 400,700 260,500"/>
+  </g>
+  <g fill="#9B7A2E" font-family="Georgia, serif" text-anchor="middle">
+    <text x="400" y="490" font-size="38" font-style="italic">Fouzia’s Kitchen</text>
+    <text x="400" y="540" font-size="18" letter-spacing="6">PHOTO PLACEHOLDER</text>
+  </g>
+</svg>
