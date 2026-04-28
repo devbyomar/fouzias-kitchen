@@ -92,7 +92,7 @@
     'simyan-mild':  { name: 'Simyan — Mild',        subtitle: 'Savoury vermicelli',   price: 6, unit: 'per 200g'  },
     'simyan-spicy': { name: 'Simyan — Spicy',       subtitle: 'Savoury vermicelli',   price: 6, unit: 'per 200g'  },
     'khitai':       { name: 'Kulcha-e-Khitai',      subtitle: 'Cardamom shortbread',  price: 9, unit: 'per dozen' },
-    'panjerei':     { name: 'Rosette Cookies',      subtitle: 'Kulcha-e-Panjerei',    price: 6, unit: 'per dozen' },
+    'panjerei':     { name: 'Kulcha-e-Panjerei',    subtitle: 'Rosette Cookies',      price: 6, unit: 'per dozen' },
     'meringue':     { name: 'Meringue Cookies',     subtitle: 'Crisp & cloud-light',  price: 6, unit: 'per dozen' }
   };
 
