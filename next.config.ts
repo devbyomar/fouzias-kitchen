@@ -3,10 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  experimental: {
-    // Enable typed routes for safer Link href usage.
-    typedRoutes: true,
-  },
+  // Generate route literal types so <Link href> is type-checked.
+  typedRoutes: true,
   images: {
     remotePatterns: [
       // Vercel Blob & Supabase public buckets — narrow once we choose one host.
