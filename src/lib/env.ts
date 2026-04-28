@@ -47,12 +47,29 @@ const EnvSchema = z.object({
 
 const parsed = EnvSchema.safeParse(process.env);
 if (!parsed.success) {
-  // eslint-disable-next-line no-console
-  console.error("❌ Invalid environment variables:", parsed.error.flatten().fieldErrors);
-  throw new Error("Invalid environment variables — see .env.example");
+  // Allow `next build` to succeed in environments where secrets aren't wired
+  // yet (e.g. first preview deploy on Vercel before env vars are populated).
+  // Set SKIP_ENV_VALIDATION=1 in the build step. The values exported below
+  // will be empty strings, so any code path that actually runs at request
+  // time will fail loudly — but the build itself can complete.
+  if (process.env.SKIP_ENV_VALIDATION === "1") {
+    // eslint-disable-next-line no-console
+    console.warn(
+      "⚠️  SKIP_ENV_VALIDATION=1 — env validation bypassed. Runtime calls will fail until vars are set.",
+    );
+  } else {
+    // eslint-disable-next-line no-console
+    console.error("❌ Invalid environment variables:", parsed.error.flatten().fieldErrors);
+    throw new Error("Invalid environment variables — see .env.example");
+  }
 }
 
-export const env = parsed.data;
+// When validation is skipped, fall back to the raw env (cast through unknown).
+// Anything that isn't set will be `undefined` and crash at first use, which is
+// the correct behavior — we never want to silently run with bad config.
+export const env = (parsed.success
+  ? parsed.data
+  : (process.env as unknown as z.infer<typeof EnvSchema>));
 
 /** Parse the comma-separated owner allowlist into a normalized Set. */
 export function ownerEmailAllowlist(): Set<string> {
