@@ -138,9 +138,10 @@ async function seedProducts() {
 }
 
 async function seedDemoData() {
-  const [{ count }] = (await db
+  const rows = (await db
     .select({ count: sql<number>`count(*)::int` })
     .from(schema.orders)) as Array<{ count: number }>;
+  const count = rows[0]?.count ?? 0;
   if (count > 0) {
     // eslint-disable-next-line no-console
     console.log(`→ ${count} orders already present; skipping demo data`);
@@ -151,7 +152,9 @@ async function seedDemoData() {
   console.log("→ seeding demo customers + orders...");
 
   const allProducts = await db.select().from(schema.products);
-  const bySlug = new Map(allProducts.map((p) => [p.slug, p]));
+  const bySlug = new Map<string, (typeof allProducts)[number]>(
+    allProducts.map((p) => [p.slug, p]),
+  );
   const kulcha = bySlug.get("kulcha-shor");
   const khitai = bySlug.get("khitai");
   const panjerei = bySlug.get("panjerei");
