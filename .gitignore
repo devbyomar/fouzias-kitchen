@@ -1,0 +1,45 @@
+# --- Node ---
+node_modules/
+.pnpm-store/
+
+# --- Next.js ---
+.next/
+out/
+build/
+dist/
+next-env.d.ts
+
+# --- Env ---
+.env
+.env.local
+.env.*.local
+
+# --- Logs ---
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Editor / OS ---
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+
+# --- Testing ---
+coverage/
+playwright-report/
+test-results/
+playwright/.cache/
+
+# --- TypeScript ---
+*.tsbuildinfo
+
+# --- Drizzle ---
+drizzle/meta/_journal.json.bak
+
+# --- Vercel ---
+.vercel

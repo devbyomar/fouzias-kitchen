@@ -1,155 +1,156 @@
-# Fouzia’s Kitchen — Website
+# Fouzia's Kitchen
 
-A premium, responsive, culturally rooted website for **Fouzia’s Kitchen**, a homegrown Afghan bakery and snack business specializing in:
+> Premium Afghan home bakery serving the Greater Toronto Area.
+> Marketing site, customer checkout, and owner console — one Next.js app.
 
-- **Kulcha-e-Shor** — Afghan tea biscuits *($8 / dozen)*
-- **Simyan** — savoury snack, mild or spicy *($6 / 200g — not a dessert)*
-- **Kulcha-e-Khitai** — traditional Afghan cookie *($9 / dozen)*
-- **Kulcha-e-Panjerei** — rosette cookies *($6 / dozen)*
-- **Meringue Cookies** — light & airy family favourite *($6 / dozen)*
-
-Built as a **single-page static site** (HTML, CSS, vanilla JS) so a small business owner can host it anywhere — Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any shared host — with **zero build step**.
-
----
-
-## File structure
-
-```
-fouzias-kitchen/
-├── index.html           ← All page content + SEO + structured data
-├── styles.css           ← Design system + responsive styles
-├── script.js            ← Mobile nav, reveal animations, form validation
-├── assets/
-│   ├── logo.svg         ← Brand mark (replace with official logo)
-│   ├── _placeholder.svg ← Auto-fallback for any missing image
-│   └── README.md        ← Detailed AI image prompts for every photo
-└── README.md            ← (this file)
-```
+[![Stack](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org)
+[![Stack](https://img.shields.io/badge/React-19-blue)](https://react.dev)
+[![Stack](https://img.shields.io/badge/TypeScript-5.7-3178c6)](https://www.typescriptlang.org)
+[![Stack](https://img.shields.io/badge/Postgres-Neon-336791)](https://neon.tech)
+[![Stack](https://img.shields.io/badge/Stripe-Checkout-635bff)](https://stripe.com)
 
 ---
 
-## Quick start
+## What this is
 
-Open `index.html` directly in a browser, **or** serve locally:
+A single Next.js 15 application serving three audiences:
+
+| Surface | Path | Audience |
+|---|---|---|
+| **Marketing site** | `/` | Customers browsing the menu |
+| **Customer checkout** | `/cart`, `/checkout/details`, `/order/*` | Customers placing & paying for orders |
+| **Owner console** | `/admin/*` | Fouzia (the owner), managing orders, inventory, customers, analytics |
+
+The owner console is invite-only — access is gated by a magic-link sent only to email addresses on the `OWNER_EMAIL` allowlist.
+
+## Tech stack
+
+- **Next.js 15** (App Router, React 19, Server Components first)
+- **TypeScript** strict mode, no `any`
+- **Drizzle ORM** + **Neon Postgres** (any Postgres works)
+- **NextAuth v5** with Resend email provider (magic links)
+- **Stripe Checkout** (hosted, redirect mode — PCI-DSS SAQ-A scope)
+- **Resend** for transactional email
+- **Vercel Blob** for product images
+- **Recharts** for analytics
+- **Radix UI** primitives + hand-rolled CSS in the bakery's brand voice
+- **Vitest** + **Playwright** for tests
+
+See [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) for the request flow, auth model, and key trade-offs.
+
+## Local development
+
+### Prerequisites
+
+- Node `>=20.11` (use `nvm use` — see `.nvmrc`)
+- pnpm `>=9` — install with `corepack enable` then `corepack prepare pnpm@latest --activate`
+- A Postgres database (free [Neon](https://neon.tech) project works perfectly)
+- A [Resend](https://resend.com) account with a verified sending domain
+- A [Stripe](https://stripe.com) account in test mode + [Stripe CLI](https://stripe.com/docs/stripe-cli) for webhook forwarding
+
+### Setup
 
 ```bash
-# Python 3 (built-in)
-python3 -m http.server 5173
+# 1. Install dependencies
+pnpm install
 
-# Or Node
-npx serve .
+# 2. Copy env template and fill it in
+cp .env.example .env.local
+# Edit .env.local — at minimum DATABASE_URL, AUTH_SECRET, OWNER_EMAIL,
+# RESEND_API_KEY, EMAIL_FROM, and the three STRIPE_* vars.
+
+# 3. Generate AUTH_SECRET if you need one
+openssl rand -base64 32
+
+# 4. Push the schema to your database and seed it
+pnpm db:push
+pnpm db:seed
+
+# 5. Start the dev server
+pnpm dev
+# → http://localhost:3000
+
+# 6. (separate terminal) Forward Stripe webhooks to your local server
+stripe login
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+# Copy the whsec_... it prints into STRIPE_WEBHOOK_SECRET in .env.local
+
+# Or run both at once:
+pnpm dev:stripe
 ```
 
-Then visit <http://localhost:5173>.
+### First admin login
 
----
+1. Make sure `OWNER_EMAIL` in `.env.local` matches the email you'll log in with.
+2. Visit `http://localhost:3000/admin`.
+3. Enter the email — a magic link will be sent via Resend (check your inbox or the Resend dashboard).
+4. Click the link → you're in.
 
-## What to customize before going live
+## Common scripts
 
-Search & replace these placeholders inside `index.html`:
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Run the dev server |
+| `pnpm dev:stripe` | Run dev server + Stripe webhook forwarder concurrently |
+| `pnpm build` | Production build |
+| `pnpm start` | Run the production build locally |
+| `pnpm lint` | ESLint |
+| `pnpm typecheck` | TypeScript no-emit check |
+| `pnpm format` | Prettier write |
+| `pnpm test` | Vitest unit tests |
+| `pnpm test:e2e` | Playwright E2E |
+| `pnpm db:generate` | Generate a new SQL migration from schema changes |
+| `pnpm db:migrate` | Apply pending migrations |
+| `pnpm db:push` | Sync schema directly (dev only — skips migrations) |
+| `pnpm db:studio` | Open Drizzle Studio (DB GUI) |
+| `pnpm db:seed` | Reseed products & demo data |
 
-| Placeholder | Where | Replace with |
-|---|---|---|
-| `[+1 (000) 000-0000]` / `+10000000000` | header tel link, footer, JSON-LD | Real phone |
-| `[hello@fouziaskitchen.com]` | footer, JSON-LD | Real email |
-| `[City]`, `[Region]`, `[Country]` | JSON-LD, FAQ, footer | Service location |
-| `[Pickup Location]`, `[Delivery Areas]`, `[Service Area]` | FAQ, footer | Real fulfilment info |
-| `[Mon–Sat, by inquiry]` | footer | Real hours |
-| `https://fouziaskitchen.example.com/` | canonical, OG tags, JSON-LD | Final domain |
-| Social `href="#"` | footer | Instagram / Facebook / WhatsApp URLs |
-| `[3–5 days]`, `[2–3 weeks]` | FAQ | Your real lead times |
+## Deploying to Vercel
 
-Then drop the brand assets:
-1. Replace `assets/logo.svg` with the official Fouzia’s Kitchen logo.
-2. Add real photography per the prompts in **`assets/README.md`** (any missing image automatically falls back to an elegant placeholder).
+1. Push this repo to GitHub.
+2. Import the repo into Vercel — the framework should auto-detect as Next.js.
+3. Add the environment variables from `.env.example` in the Vercel dashboard.
+4. Add a Vercel Postgres or connect your existing Neon database via the integration.
+5. After first deploy, run migrations: from your local machine with the production `DATABASE_URL`, `pnpm db:migrate`.
+6. **Configure the production Stripe webhook:**
+   - Stripe Dashboard → Developers → Webhooks → Add endpoint
+   - URL: `https://your-domain.com/api/webhooks/stripe`
+   - Events: `checkout.session.completed`, `checkout.session.expired`, `checkout.session.async_payment_failed`, `charge.refunded`, `payment_intent.payment_failed`
+   - Copy the signing secret into Vercel env as `STRIPE_WEBHOOK_SECRET`.
+7. Verify the marketing site loads, then sign into `/admin` with your `OWNER_EMAIL`.
 
----
+## Project structure
 
-## Wiring up the inquiry form
-
-The form is fully built — accessible labels, validation, success state. Connect it to any provider in 1 line:
-
-**Option A — Formspree** (easiest, free tier):
-```html
-<form class="inquiry-form" id="inquiryForm" action="https://formspree.io/f/XXXXXX" method="POST">
 ```
-Then remove the simulated `e.preventDefault()` block in `script.js`.
-
-**Option B — Netlify Forms** (auto if hosted on Netlify):
-```html
-<form class="inquiry-form" id="inquiryForm" data-netlify="true" name="inquiry">
+.
+├── src/
+│   ├── app/                    # App Router routes
+│   │   ├── (marketing)/        # Public site
+│   │   ├── (checkout)/         # Cart → Stripe → confirmation
+│   │   ├── admin/              # Owner console (auth-gated)
+│   │   └── api/                # Route handlers (checkout, webhooks, inquiries)
+│   ├── components/             # React components (shared UI)
+│   ├── db/                     # Drizzle schema, client, seed
+│   ├── lib/                    # Auth, email, Stripe client, utils
+│   └── server/                 # Server-only modules (queries, actions)
+├── public/
+│   └── assets/                 # Brand assets (logo, photography)
+├── drizzle/                    # Generated SQL migrations
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── PAYMENTS_TESTING.md
+│   └── prompts/                # Build briefs handed to AI assistants
+└── tests/
+    └── e2e/                    # Playwright specs
 ```
 
-**Option C — EmailJS / Web3Forms / Getform** — same idea, swap the `action` URL.
+## Contact
 
----
+- Phone: **(416) 894-5755**
+- Instagram: [@fouzias.kitchen](https://www.instagram.com/fouzias.kitchen)
+- WhatsApp: [(416) 894-5755](https://wa.me/14168945755)
+- Service area: Greater Toronto Area
 
-## Brand & design system
+## License
 
-Extracted from the logo:
-
-| Token | Value | Use |
-|---|---|---|
-| Cream background | `#FAF6EE` | Primary background |
-| Soft warm | `#F3ECDD` / `#EFE5D0` | Section banding |
-| Deep brown | `#3B2418` | Body text, primary CTA |
-| Warm gold | `#C9A24A` | Accent, dividers |
-| Antique gold | `#9B7A2E` | Eyebrow text, hover |
-| Terracotta | `#B5503A` | Spicy / required marker |
-| Olive green | `#5A6B3A` | Trust dot, success state |
-
-**Typography**
-- Headings: *Cormorant Garamond* (refined, editorial serif)
-- Body: *Inter* (clean, readable sans)
-- Decorative accent: *Dancing Script* (used sparingly)
-
-All design tokens live as CSS variables at the top of `styles.css` for easy adjustment.
-
----
-
-## Sections included
-
-1. Hero with primary + secondary CTA and trust micro-points
-2. Brand Story / About with founder quote
-3. Featured Products (4 cards with Afghan names, occasions, tags)
-4. Full Menu (4 categories + allergen note)
-5. Mild vs Spicy Simyan dedicated comparison
-6. Occasion-Based Ordering (12 occasions + dark CTA band)
-7. Afghan Tea & Hospitality / Heritage
-8. Editorial masonry Gallery (8 images)
-9. Testimonials (4 cards with star ratings)
-10. How to Order (4 numbered steps)
-11. FAQ (12 accordion questions)
-12. Contact / Inquiry Form (all required fields, validation, success state)
-13. Footer (logo, brand statement, nav, contact, socials, disclaimer)
-14. Sticky mobile “Start Your Order” CTA
-
----
-
-## Quality audit ✅
-
-- ✅ Culturally Afghan without clichés (no flags, maps, costumes, chef hats)
-- ✅ Premium yet homemade — editorial feel, warm tones
-- ✅ Conversion-focused — CTAs in hero, after products, after occasions, sticky mobile
-- ✅ Simyan correctly positioned as **savoury**, with mild/spicy clearly represented
-- ✅ Kulcha-e-Shor / Khitai / Panjerei accurately described
-- ✅ Mobile-first responsive (tested at 360 / 768 / 1024 / 1440 px)
-- ✅ Accessible: skip link, semantic HTML, labelled fields, ARIA, focus states, reduced-motion
-- ✅ SEO: meta description, keywords, OG tags, canonical, LocalBusiness JSON-LD
-- ✅ Performant: no frameworks, two Google Font families, lightweight JS
-- ✅ Editable by a non-technical owner — copy lives in `index.html` as plain HTML
-
----
-
-## Optional next steps
-
-- Add a `sitemap.xml` and `robots.txt` for production
-- Compress photos with [Squoosh](https://squoosh.app) or [TinyPNG](https://tinypng.com)
-- Hook up Google Business Profile and embed reviews
-- Add Instagram feed (e.g. EmbedSocial / SnapWidget)
-- Add a `/thank-you` page for form post-submission redirects
-- Translate to Dari / Pashto for community audiences
-
----
-
-*Traditional Afghan snacks and sweets, handcrafted with warmth, care, and heritage.*
+Proprietary — © Fouzia's Kitchen. All rights reserved.
