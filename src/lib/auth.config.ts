@@ -32,7 +32,6 @@ export const authConfig: NextAuthConfig = {
     async session({ session, user }) {
       if (session.user && user) {
         session.user.id = user.id;
-        // @ts-expect-error: role column augmented in src/types/next-auth.d.ts
         session.user.role = user.role ?? "owner";
       }
       return session;
