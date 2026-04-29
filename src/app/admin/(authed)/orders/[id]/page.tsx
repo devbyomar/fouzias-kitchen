@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import { allowedNextStatuses, getOrderById } from "@/server/queries/orders";
 import { OrderStatusActions } from "@/components/admin/OrderStatusActions";
 import { OrderNoteForm } from "@/components/admin/OrderNoteForm";
+import { PaymentActions } from "@/components/admin/PaymentActions";
 import {
   formatCents,
   formatDate,
@@ -90,6 +91,21 @@ export default async function OrderDetailPage({
           <h2 className="panel__title">Status</h2>
         </header>
         <OrderStatusActions orderId={order.id} allowed={allowed} />
+      </section>
+
+      <section className="panel">
+        <header className="panel__head">
+          <h2 className="panel__title">Payment</h2>
+          <span className={`pill pill--pay-${order.paymentStatus}`}>{order.paymentStatus}</span>
+        </header>
+        <PaymentActions
+          orderId={order.id}
+          paymentStatus={order.paymentStatus}
+          totalCents={order.totalCents}
+          amountPaidCents={order.amountPaidCents}
+          refundedCents={order.refundedCents}
+          hasPaymentIntent={Boolean(order.stripePaymentIntentId)}
+        />
       </section>
 
       <div className="dashboard__grid">

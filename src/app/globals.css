@@ -2359,6 +2359,23 @@ a.stat-card:hover { border-color: var(--admin-border-strong); transform: transla
   white-space: nowrap;
 }
 
+/* Payment actions panel */
+.payment-actions { display: flex; flex-direction: column; gap: .5rem; }
+.payment-actions .kv > div { grid-template-columns: 130px 1fr; }
+.payment-actions__refund {
+  margin-top: .85rem;
+  padding-top: .85rem;
+  border-top: 1px dashed var(--admin-border);
+}
+.payment-actions__refund .convert-form__row { align-items: flex-end; }
+.payment-actions__refund input[type="number"] {
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border-strong);
+  border-radius: 8px; padding: .45rem .6rem;
+  font-family: inherit; font-size: .88rem; color: var(--admin-ink);
+  width: 160px;
+}
+
 /* Audit diff */
 .audit-diff {
   white-space: pre; font-family: ui-monospace, monospace;
