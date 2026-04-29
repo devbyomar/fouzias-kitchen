@@ -146,7 +146,9 @@ export default async function CustomerDetailPage({
               {inquiryHistory.map((q) => (
                 <tr key={q.id}>
                   <td>
-                    <Link href={`/admin/inquiries/${q.id}`}>{q.subject ?? "(no subject)"}</Link>
+                    <Link href={`/admin/inquiries/${q.id}`}>
+                      {q.subject ? q.subject.slice(0, 80) + (q.subject.length > 80 ? "…" : "") : "(no message)"}
+                    </Link>
                   </td>
                   <td>
                     <span className={`pill pill--inq-${q.status}`}>{q.status}</span>

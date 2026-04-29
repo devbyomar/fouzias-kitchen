@@ -153,25 +153,19 @@ export async function getCustomerById(id: string): Promise<CustomerDetail | null
       .where(eq(orders.customerId, id))
       .orderBy(desc(orders.createdAt))
       .limit(50),
-    // Inquiries don't have a customerId column — we match by email, lowercased.
-    customer.email
-      ? db
-          .select({
-            id: inquiries.id,
-            subject: inquiries.subject,
-            status: inquiries.status,
-            createdAt: inquiries.createdAt,
-          })
-          .from(inquiries)
-          .where(eq(inquiries.email, customer.email.toLowerCase()))
-          .orderBy(desc(inquiries.createdAt))
-          .limit(50)
-      : Promise.resolve([] as Array<{
-          id: string;
-          subject: string | null;
-          status: string;
-          createdAt: Date;
-        }>),
+    // Inquiries link to customers via customerId. We surface the first line
+    // of the message as a "subject" preview for the customer detail page.
+    db
+      .select({
+        id: inquiries.id,
+        subject: inquiries.message,
+        status: inquiries.status,
+        createdAt: inquiries.createdAt,
+      })
+      .from(inquiries)
+      .where(eq(inquiries.customerId, id))
+      .orderBy(desc(inquiries.createdAt))
+      .limit(50),
   ]);
 
   const paid = orderHistory.filter((o) => o.paymentStatus === "paid" || o.paymentStatus === "refunded");
