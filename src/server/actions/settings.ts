@@ -7,7 +7,7 @@
 
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { db } from "@/db";
 import { settings } from "@/db/schema";
 import { recordAudit } from "@/server/audit";

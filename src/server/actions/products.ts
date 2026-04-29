@@ -13,7 +13,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { and, eq } from "drizzle-orm";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { db } from "@/db";
 import { inventory, products } from "@/db/schema";
 import { recordAudit } from "@/server/audit";

@@ -10,7 +10,7 @@
 
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { db } from "@/db";
 import { customers } from "@/db/schema";
 import { recordAudit } from "@/server/audit";
