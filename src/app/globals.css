@@ -2265,3 +2265,108 @@ a.stat-card:hover { border-color: var(--admin-border-strong); transform: transla
 
 /* Reuse status pill colors for product active/archived via fulfilled/cancelled.
    No new rules needed — those classes already render greens/grays from commit 5. */
+
+/* ============================================================
+   ADMIN — calendar, analytics bars, audit (commit 8)
+   ============================================================ */
+
+.calendar-layout { display: grid; gap: 1rem; }
+.calendar-layout--with-side {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+}
+@media (max-width: 980px) {
+  .calendar-layout--with-side { grid-template-columns: 1fr; }
+}
+.calendar-panel { padding: 1rem; }
+
+.calendar-grid {
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+.calendar-grid__head {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--admin-muted); padding: .35rem .25rem; text-align: center;
+}
+.calendar-cell {
+  display: flex; flex-direction: column; gap: .15rem;
+  min-height: 88px; padding: .45rem .55rem;
+  background: var(--admin-panel);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  text-decoration: none; color: var(--admin-ink);
+  transition: border-color .12s, background .12s;
+}
+.calendar-cell:hover { border-color: var(--admin-brand); }
+.calendar-cell--empty {
+  background: transparent; border-color: transparent; pointer-events: none;
+  min-height: 0;
+}
+.calendar-cell--blocked {
+  background: repeating-linear-gradient(
+    45deg,
+    #F5DEDA, #F5DEDA 6px, #FBEAE6 6px, #FBEAE6 12px
+  );
+  color: #8A3A28;
+}
+.calendar-cell--selected { outline: 2px solid var(--admin-brand); outline-offset: -2px; }
+.calendar-cell__day { font-weight: 600; font-size: .9rem; }
+.calendar-cell__meta { font-size: .72rem; color: var(--admin-muted); }
+.calendar-cell__money { color: var(--admin-ink-soft); margin-top: .1rem; }
+.calendar-cell__blocked { font-size: .7rem; font-weight: 600; }
+.calendar-cell__cap {
+  font-size: .65rem; color: var(--admin-muted); margin-top: auto;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+
+.calendar-side { padding: 1rem; }
+
+.day-orders { list-style: none; padding: 0; margin: 0; display: grid; gap: .4rem; }
+.day-orders__row {
+  display: grid; grid-template-columns: 60px 1fr auto auto;
+  align-items: center; gap: .5rem;
+  padding: .45rem .5rem;
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  font-size: .82rem;
+}
+.day-orders__num { color: var(--admin-brand); text-decoration: none; font-weight: 500; }
+.day-orders__num:hover { text-decoration: underline; }
+.day-orders__name { color: var(--admin-ink); }
+.day-orders__total { color: var(--admin-ink); font-weight: 500; }
+
+/* Analytics bar chart */
+.bars {
+  display: flex; align-items: flex-end; gap: 4px;
+  height: 180px; padding: .5rem 0;
+  overflow-x: auto;
+}
+.bars__col {
+  display: flex; flex-direction: column; align-items: center; gap: .3rem;
+  min-width: 22px; flex: 1 1 22px;
+  height: 100%;
+}
+.bars__bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--admin-brand) 0%, color-mix(in srgb, var(--admin-brand) 70%, var(--admin-accent)) 100%);
+  border-radius: 4px 4px 0 0;
+  min-height: 2px;
+}
+.bars__col:hover .bars__bar { background: var(--admin-brand); }
+.bars__label {
+  font-size: .65rem; color: var(--admin-muted);
+  transform: rotate(-45deg); transform-origin: top left;
+  white-space: nowrap;
+}
+
+/* Audit diff */
+.audit-diff {
+  white-space: pre; font-family: ui-monospace, monospace;
+  font-size: .75rem; color: var(--admin-ink-soft);
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  padding: .55rem .7rem;
+  margin: .35rem 0 0;
+  max-height: 280px; overflow: auto;
+}
