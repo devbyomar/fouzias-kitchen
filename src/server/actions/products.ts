@@ -103,8 +103,9 @@ export async function createProduct(input: ProductFormInput): Promise<ActionResu
 
   revalidatePath("/admin/products");
   redirect(`/admin/products/${created.id}`);
+  // Unreachable — redirect() throws — but satisfies the return type checker.
   // eslint-disable-next-line no-unreachable
-  return { ok: true, id: created.id };
+  return { ok: true, id: created!.id };
 }
 
 export async function updateProduct(input: ProductFormInput): Promise<ActionResult> {
