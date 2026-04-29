@@ -2242,3 +2242,26 @@ a.stat-card:hover { border-color: var(--admin-border-strong); transform: transla
   margin: .3rem 0 0; font-size: .85rem; color: var(--admin-ink-soft);
   white-space: pre-wrap;
 }
+
+/* ============================================================
+   ADMIN — products, inventory editor, customer form (commit 7)
+   ============================================================ */
+
+.convert-form__check {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .88rem; color: var(--admin-ink-soft);
+  padding: .55rem 0;
+}
+
+.inventory-editor { width: 100%; }
+.inventory-editor__table th,
+.inventory-editor__table td {
+  padding: .55rem .8rem;
+}
+.inventory-editor__qty {
+  width: 90px;
+  padding: .35rem .5rem;
+}
+
+/* Reuse status pill colors for product active/archived via fulfilled/cancelled.
+   No new rules needed — those classes already render greens/grays from commit 5. */
